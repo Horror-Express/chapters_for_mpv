@@ -141,6 +141,16 @@ local function add_chapter()
 end
 
 
+-- ADDED FUNCTION TO ADD CHAPTER WHILE IGNORING "ASK FOR TITLE?", FOR USE IN A SHORTCUT
+local function add_chapter_notitle()
+
+    options.ask_for_title = false
+    add_chapter()
+    options.ask_for_title = true
+
+end
+
+
 local function remove_chapter()
     local chapter_count = mp.get_property_number("chapter-list/count")
 
@@ -570,8 +580,15 @@ mp.add_hook("on_unload", 50, function () input.terminate() end)
 -- BINDINGS --------------------------------------------------------------------
 
 
-mp.add_key_binding(nil, "add_chapter", add_chapter)
-mp.add_key_binding(nil, "remove_chapter", remove_chapter)
+--mp.add_key_binding(nil, "add_chapter", add_chapter)
+--mp.add_key_binding(nil, "add_chapter_notitle", add_chapter_notitle)
+--mp.add_key_binding(nil, "remove_chapter", remove_chapter)
+
+mp.add_key_binding("UP", "add_chapter", add_chapter)
+mp.add_key_binding("shift+UP", "add_chapter_notitle", add_chapter_notitle)
+--mp.add_key_binding("shift+UP", "edit_chapter", edit_chapter)
+mp.add_key_binding("DOWN", "remove_chapter", remove_chapter)
+
 mp.add_key_binding(nil, "edit_chapter", edit_chapter)
 mp.add_key_binding(nil, "write_chapters", function () write_chapters(true) end)
 mp.add_key_binding(nil, "bake_chapters", bake_chapters)
